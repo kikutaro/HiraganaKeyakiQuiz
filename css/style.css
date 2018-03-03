@@ -1,0 +1,8 @@
+body {
+    font-family: "Nico Moji" !important;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+div {font-family: "Rounded Mplus 1c" !important;font-size: 1.1em; }
