@@ -25,4 +25,5 @@ $(document).ready(function(){
         duration  : 1000,
         interval  : 200
     });
+    $('.ui.dropdown').dropdown();
 });
