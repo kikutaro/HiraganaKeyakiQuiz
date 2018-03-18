@@ -29,7 +29,7 @@ Vue.component("quiz", {
     </div>
     <div class="extra content">
         <form>
-            <a class="ui circular twitter icon button" v-bind:href="'https://twitter.com/intent/tweet?text=' + question + '&url=http%3A%2F%2Flocalhost:8080%2Fquiz?no=' + no + '&hashtags=ひらがなけやき2期生クイズ%2C' + name" target="_blank">
+            <a class="ui circular twitter icon button" v-bind:href="'https://twitter.com/intent/tweet?text=' + question + '&url=https%3A%2F%2Fsakamichi46quiz.herokuapp.com%2Fquiz?no=' + no + '&hashtags=ひらがなけやき2期生クイズ%2C' + name" target="_blank">
                 <i class="twitter icon"></i>
             </a>
             <button class="ui circular facebook icon button">
@@ -73,7 +73,7 @@ Vue.component("quiz", {
   },
   methods: {
     check: function(no, answer_no) {
-      axios.get("http://localhost:8080/quiz/answer?no=" + no + "&answer=" + answer_no)
+      axios.get("https://sakamichi46quiz.herokuapp.com/quiz/answer?no=" + no + "&answer=" + answer_no)
       .then((response) => {
         this.answer = response.data;
         if(response.data.correct) {
@@ -111,29 +111,25 @@ var app = new Vue({
   },
   methods: {
     quiz: function(member) {
-      axios.get("http://localhost:8080/quiz/all")
+      axios.get("https://sakamichi46quiz.herokuapp.com/quiz/all")
       .then((response) => {
         this.quizs = response.data;
       })
     }
   },
   mounted() {
-    console.log(this.error)
-    console.log(this.$route.query.no)
     if(typeof this.$route.query.no === 'undefined' || isNaN(this.$route.query.no)) {
-      axios.get("http://localhost:8080/quiz/random")
+      axios.get("https://sakamichi46quiz.herokuapp.com/quiz/random")
       .then((response) => {
         this.quizs = Array.of(response.data);
       })
     } else {
-      axios.get("http://localhost:8080/quiz?no=" + this.$route.query.no)
+      axios.get("https://sakamichi46quiz.herokuapp.com?no=" + this.$route.query.no)
       .then((response) => {
-        console.log(response.data)
         this.quizs = Array.of(response.data);
       })
       .catch((response) => {
         this.error = true;
-        console.log("error")
       })
     }
   }
