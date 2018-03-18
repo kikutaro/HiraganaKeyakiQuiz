@@ -111,10 +111,17 @@ var app = new Vue({
   },
   methods: {
     quiz: function(member) {
-      axios.get("https://sakamichi46quiz.herokuapp.com/quiz/all")
+      if(member === undefined) {
+        axios.get("https://sakamichi46quiz.herokuapp.com/quiz/all")
+        .then((response) => {
+          this.quizs = response.data;
+        })
+      } else {
+        axios.get("https://sakamichi46quiz.herokuapp.com/quiz/member?name=" + member.name)
       .then((response) => {
         this.quizs = response.data;
       })
+    }
     }
   },
   mounted() {
