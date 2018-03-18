@@ -27,6 +27,7 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue-router@3.0.1/dist/vue-router.js"></script>
 </head>
 
 <body>
@@ -60,9 +61,17 @@
                     ひらがなけやき2期生クイズ
                 </h2>
             </div>
+            <div v-if="error" class="ui red message">
+                <div class="content">
+                    <div class="header">
+                    クイズデータの取得に失敗しました。
+                    </div>
+                    <p>ページをリロードしてください。</p>
+                </div>
+            </div>
             <div class="ui centered two stackable cards">
                 <quiz v-for="q in quizs"
-                    :id="q.id" :name="q.name" :question="q.question" :image="q.image"
+                    :id="q.id" :no="q.no" :name="q.name" :question="q.question" :image="q.image"
                     :answer1="q.answer1" :answer2="q.answer2" :answer3="q.answer3" :answer4="q.answer4">
                 </quiz>
             </div>
