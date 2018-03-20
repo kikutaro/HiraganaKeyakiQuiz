@@ -29,7 +29,7 @@ Vue.component("quiz", {
     </div>
     <div class="extra content">
         <form>
-            <a class="ui circular twitter icon button" v-bind:href="'https://twitter.com/intent/tweet?text=' + question + '&url=https%3A%2F%2Fhiraganakeyaki.com?no=' + no + '&hashtags=ひらがなけやき2期生クイズ%2C' + name" target="_blank">
+            <a class="ui circular twitter icon button" v-bind:href="'https://twitter.com/intent/tweet?text=' + question + '&url=https%3A%2F%2Fhiraganakeyaki.com?no=' + no + '&hashtags=欅坂46%2cけやき坂46%2cひらがなけやき%2C2期生クイズ%2C' + name" target="_blank">
                 <i class="twitter icon"></i>
             </a>
             <button class="ui circular facebook icon button">
