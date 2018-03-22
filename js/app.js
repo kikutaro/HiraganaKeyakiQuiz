@@ -1,3 +1,6 @@
+const url = "https://sakamichi46quiz.herokuapp.com"
+//const url = "http://localhost:8080"
+
 Vue.component("quiz", {
   props: ["id", "no", "name", "question", "image", "answer1", "answer2", "answer3", "answer4"],
   template: 
@@ -73,7 +76,7 @@ Vue.component("quiz", {
   },
   methods: {
     check: function(no, answer_no) {
-      axios.get("https://sakamichi46quiz.herokuapp.com/quiz/answer?no=" + no + "&answer=" + answer_no)
+      axios.get(url + "/quiz/answer?no=" + no + "&answer=" + answer_no)
       .then((response) => {
         this.answer = response.data;
         if(response.data.correct) {
@@ -112,12 +115,12 @@ var app = new Vue({
   methods: {
     quiz: function(member) {
       if(member === undefined) {
-        axios.get("https://sakamichi46quiz.herokuapp.com/quiz/all")
+        axios.get(url + "/quiz/all")
         .then((response) => {
           this.quizs = response.data;
         })
       } else {
-        axios.get("https://sakamichi46quiz.herokuapp.com/quiz/member?name=" + member.name)
+        axios.get(url + "/quiz/member?name=" + member.name)
       .then((response) => {
         this.quizs = response.data;
       })
@@ -125,13 +128,14 @@ var app = new Vue({
     }
   },
   mounted() {
+    console.log(url)
     if(typeof this.$route.query.no === 'undefined' || isNaN(this.$route.query.no)) {
-      axios.get("https://sakamichi46quiz.herokuapp.com/quiz/random")
+      axios.get(url + "/quiz/random")
       .then((response) => {
         this.quizs = Array.of(response.data);
       })
     } else {
-      axios.get("https://sakamichi46quiz.herokuapp.com?no=" + this.$route.query.no)
+      axios.get(url + "?no=" + this.$route.query.no)
       .then((response) => {
         this.quizs = Array.of(response.data);
       })
