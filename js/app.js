@@ -12,6 +12,7 @@ Vue.component("quiz", {
     <div class="content">
         <h2 class="ui header">{{question}}</h2>
         <div class="meta">
+          正解率：{{rate(no)}}{{accuracyrate}}%
         </div>
     </div>
     <div class="content">
@@ -71,7 +72,8 @@ Vue.component("quiz", {
   `,
   data: function() {
     return {
-      answer: []
+      answer: [],
+      accuracyrate: 0
     }
   },
   methods: {
@@ -87,6 +89,17 @@ Vue.component("quiz", {
           $('#'+no+'cross').modal({
             centered: true
           }).modal('show');
+        }
+      })
+    },
+    rate: function(no) {
+      axios.get(url + '/quiz/stats?no=' + no)
+      .then((response) => {
+        rate = response.data.correctCount / response.data.totalCount * 100
+        if(isNaN(rate)) {
+          this.accuracyrate = 0;
+        } else {
+          this.accuracyrate = Math.round(rate * 100) / 100
         }
       })
     }
@@ -121,10 +134,10 @@ var app = new Vue({
         })
       } else {
         axios.get(url + "/quiz/member?name=" + member.name)
-      .then((response) => {
-        this.quizs = response.data;
-      })
-    }
+        .then((response) => {
+          this.quizs = response.data;
+        })
+      }
     }
   },
   mounted() {
