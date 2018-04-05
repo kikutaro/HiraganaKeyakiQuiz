@@ -142,18 +142,24 @@ var app = new Vue({
   },
   mounted() {
     console.log(url)
-    if(typeof this.$route.query.no === 'undefined' || isNaN(this.$route.query.no)) {
-      axios.get(url + "/quiz/random")
+    console.log(this.$route.query.name)
+    if(this.$route.query.name) {
+      axios.get(url + "/quiz/member?name=" + this.$route.query.name)
       .then((response) => {
-        this.quizs = Array.of(response.data);
+        this.quizs = response.data;
       })
-    } else {
+    } else if(Number.isInteger(this.$route.query.no)) {
       axios.get(url + "?no=" + this.$route.query.no)
       .then((response) => {
         this.quizs = Array.of(response.data);
       })
       .catch((response) => {
         this.error = true;
+      })
+    } else {
+      axios.get(url + "/quiz/random")
+      .then((response) => {
+        this.quizs = Array.of(response.data);
       })
     }
   }
